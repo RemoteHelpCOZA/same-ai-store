@@ -40,13 +40,23 @@
     <section class="categories">
         <div class="container">
             <?php
-            // Placeholder for category links
-            $terms = get_terms( array(
-                'taxonomy' => 'product_cat',
-                'orderby' => 'count',
-                'order' => 'DESC',
-                'number' => 8,
-            ) );
+            // Dynamic categories from Customizer
+            $cat_ids = get_theme_mod( 'es_homepage_cat_ids', '' );
+            $ids = array_filter( array_map( 'intval', explode( ',', $cat_ids ) ) );
+            if ( $ids ) {
+                $terms = get_terms( array(
+                    'taxonomy'   => 'product_cat',
+                    'include'    => $ids,
+                    'orderby'    => 'include',
+                ) );
+            } else {
+                $terms = get_terms( array(
+                    'taxonomy' => 'product_cat',
+                    'orderby'  => 'count',
+                    'order'    => 'DESC',
+                    'number'   => 8,
+                ) );
+            }
             if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) :
                 echo '<div class="category-grid">';
                 foreach ( $terms as $term ) :

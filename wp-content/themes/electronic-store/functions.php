@@ -44,4 +44,30 @@ function es_widgets_init() {
     register_nav_menu( 'footer-menu', 'Footer Menu' );
 }
 add_action( 'widgets_init', 'es_widgets_init' );
+
+// Add Customizer setting and control for homepage categories
+add_action( 'customize_register', function( $wp_customize ) {
+    // Add section
+    $wp_customize->add_section( 'es_homepage_categories', array(
+        'title'    => 'Homepage Categories',
+        'priority' => 30,
+    ) );
+
+    // Setting for category IDs (comma-separated)
+    $wp_customize->add_setting( 'es_homepage_cat_ids', array(
+        'default'           => '',
+        'sanitize_callback' => function( $value ) {
+            return sanitize_text_field( $value );
+        }
+    ) );
+
+    // Control
+    $wp_customize->add_control( 'es_homepage_cat_ids_control', array(
+        'label'       => 'Category IDs (comma-separated)',
+        'section'     => 'es_homepage_categories',
+        'settings'    => 'es_homepage_cat_ids',
+        'type'        => 'text',
+        'description' => 'Enter product category IDs in the order you want them to appear.',
+    ) );
+} );
 ?>
