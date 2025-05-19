@@ -4,7 +4,7 @@
  * Plugin URI: https://example.com/
  * Description: Imports sample products programmatically to populate the Electronic Store demo content.
  * Version: 1.0
- * Author: Assistant
+ * Author: Remote Help
  * Text Domain: es-sample-importer
  */
 
